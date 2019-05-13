@@ -1,10 +1,7 @@
 const Twit = require('twit');
-const dotenv = require('dotenv');
 const greet = require('./greeting');
 
-dotenv.config();
-
-console.log(process.env);
+require('dotenv').config()
 
 const T = new Twit({
   consumer_key: process.env.CONSUMER_KEY,
