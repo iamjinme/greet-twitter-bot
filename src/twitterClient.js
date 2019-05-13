@@ -20,3 +20,16 @@ function verifyCredentials(cb) {
     include_email: false,
   });
 };
+
+function sendGreeting(user) {
+  T.post('direct_messages/new',{
+    user_id: user.id_str,
+    text: greet(user.name),
+  },
+  function(err) {
+    if(err) {
+      console.log('error <sendGreeting> to user: %s %s %s', user.name, user.screen_name, user.id_str);
+      console.log(err);
+    }
+  });
+};
