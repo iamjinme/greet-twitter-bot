@@ -33,3 +33,18 @@ function sendGreeting(user) {
     }
   });
 };
+
+const stream = T.stream('user');
+
+verifyCredentials(function(err, res){
+  if (err) throw err;
+  const account_id = res.id_str;
+  console.log('credentials ok - running bot');
+  stream.on('follow', function(json){
+    console.log('follow event with data:', json)
+    if(json.event === 'follow' && json.source.id_str !== account_id) sendGreeting(json.source);
+  });
+  stream.on('error', function(error){
+    throw error;
+  });
+});
