@@ -1,5 +1,6 @@
 const Twit = require('twit');
 const dotenv = require('dotenv');
+const greet = require('./greeting');
 
 dotenv.config();
 
@@ -11,3 +12,11 @@ const T = new Twit({
   access_token: process.env.ACCESS_TOKEN,
   access_token_secret: process.env.ACCESS_TOKEN_SECRET,
 });
+
+function verifyCredentials(cb) {
+  T.get('account/verify_credentials', {
+    include_entities: false,
+    skip_status: true,
+    include_email: false,
+  });
+};
