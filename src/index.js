@@ -31,7 +31,8 @@ function sendGreeting(user) {
   });
 };
 
-const stream = T.stream('user');
+const user_id_str = process.env.USER_ID; // iamjinme
+const stream = T.stream('statuses/filter', { follow: user_id_str });
 
 verifyCredentials(function(err, res){
   if (err) throw err;
