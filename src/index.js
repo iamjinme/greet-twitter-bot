@@ -42,6 +42,15 @@ verifyCredentials(function(err, res){
     console.log('follow event with data:', json);
     if(json.event === 'follow' && json.source.id_str !== account_id) sendGreeting(json.source);
   });
+  stream.on('favorite', function (event) {
+    console.log('favorite event', event);
+  });
+  stream.on('disconnect', function (disconnectMessage) {
+    console.log('disconnected because:', disconnectMessage);
+  });
+  stream.on('unknown_user_event', function(event) {
+    console.log('event unknow:', event);
+  });
   stream.on('error', function(error){
     throw error;
   });
