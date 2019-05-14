@@ -33,6 +33,7 @@ function sendGreeting(user) {
 
 const user_id_str = process.env.USER_ID; // iamjinme
 const stream = T.stream('statuses/filter', { follow: user_id_str });
+// const stream = T.stream('statuses/filter', { track: '#GOT' }); // Works tracking hashtag
 
 verifyCredentials(function(err, res){
   if (err) throw err;
@@ -41,6 +42,9 @@ verifyCredentials(function(err, res){
   stream.on('follow', function(json){
     console.log('follow event with data:', json);
     if(json.event === 'follow' && json.source.id_str !== account_id) sendGreeting(json.source);
+  });
+  stream.on('tweet', function (tweet) {
+    console.log('tweet received', tweet);
   });
   stream.on('favorite', function (event) {
     console.log('favorite event', event);
